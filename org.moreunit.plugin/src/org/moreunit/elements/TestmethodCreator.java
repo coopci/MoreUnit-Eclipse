@@ -199,7 +199,7 @@ public class TestmethodCreator
 
         IMethod testMethod = null;
         if(PreferenceConstants.TEST_TYPE_VALUE_JUNIT_4.equals(testType))
-            testMethod = createJUnit4Testmethod(testMethodName, null, comment);
+            testMethod = createJUnit4Testmethod(methodUnderTest, testMethodName, null, comment);
         else if(PreferenceConstants.TEST_TYPE_VALUE_JUNIT_3.equals(testType))
             testMethod = createJUnit3Testmethod(testMethodName, null, comment);
         else if(PreferenceConstants.TEST_TYPE_VALUE_TESTNG.equals(testType))
@@ -349,6 +349,14 @@ public class TestmethodCreator
         return createMethod(testMethodName, getJUnit4MethodStub(testMethodName, comment), sibling);
     }
 
+    protected IMethod createJUnit4Testmethod(IMethod methodUnderTest, String testMethodName, IMethod sibling, String comment)
+    {
+        String methodSource = getJUnit4MethodStub(testMethodName, comment);
+        int elementType = methodUnderTest.getParent().getElementType();
+        
+        
+        return createMethod(testMethodName, methodSource, sibling);
+    }
     private String getJUnit4MethodStub(String testmethodName, String comment)
     {
         StringBuilder methodContent = new StringBuilder();
